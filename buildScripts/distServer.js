@@ -1,24 +1,17 @@
 import express from 'express';
 import path from 'path';
-
-//*after configuring in config file, set up dev server to serve webpack bundle
-import webpack from 'webpack';
-import config from '../webpack.config.dev';
-import webpackMiddleware from 'webpack-dev-middleware';
+import compression from 'compression';
 
 /* eslint-disable no-console */
 
 const port = 3000;
 const app = express();
 
-const compiler = webpack(config);
-app.use(webpackMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-}));
+app.use(compression());
+app.use(express.static('dist'));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../src/index.html'));
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
 })
 
 //mock database

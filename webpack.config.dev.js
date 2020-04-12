@@ -1,4 +1,5 @@
 import path from 'path';
+import htmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
     devtool: 'inline-source-map',
@@ -22,7 +23,13 @@ export default {
         noInfo: true,
         stats: 'none'
     },
-    plugins: [],
+    plugins: [
+        new htmlWebpackPlugin({
+            template: 'src/index.html',
+            inject: true
+        })
+    ],
+
 
     //tells webpack the file types(loaders) that we want it to handle
     //webpack can handle many more types of loaders than this
